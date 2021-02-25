@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS books
+(
+    book_id INTEGER NOT NULL AUTO_INCREMENT,
+    title   VARCHAR(100) NOT NULL,
+    author  VARCHAR(100) NOT NULL
+);
