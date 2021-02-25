@@ -6,8 +6,6 @@ import com.markusjais.examples.springbootmicrometerdemo.exceptions.ResourceNotFo
 import com.markusjais.examples.springbootmicrometerdemo.service.BookService;
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.config.MeterFilter;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,16 +56,5 @@ public class BookController {
     public void deleteBook(@PathVariable(value = "bookId") Long bookId) {
         bookService.deleteBookById(bookId);
     }
-
-//    @Bean
-//    public MeterFilter renameGetAllBooksTimerMeterFilter() {
-//        return MeterFilter.renameTag("getAllBooksTimer", "book.request", "book.request.all");
-//    }
-
-//    @Bean
-//    public MeterFilter removeGetBookByIdTimerMeterFilter() {
-//        return MeterFilter.renameTag("getAllBooksTimer", "book.request", "book.request.all");
-//    }
-
 }
 
