@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
@@ -32,7 +33,7 @@ public class BookController {
     @Timed(value = "getBookByIdTimer")
     public ResponseEntity<Book> getBookById(@PathVariable(value = "bookId") Long bookId)
             throws ResourceNotFoundException {
-        meterRegistry.counter("book_read_counter").increment();
+        meterRegistry.counter("book.getbyid.counter").increment();
         var book = bookService.findBookById(bookId);
         return ResponseEntity.ok().body(book);
     }
@@ -47,7 +48,7 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
-        meterRegistry.counter("book_creation_counter").increment();
+        meterRegistry.counter("book.creation.counter").increment();
         Book createdBook = bookService.createBook(book);
         return  new ResponseEntity<>(createdBook, HttpStatus.CREATED);
     }

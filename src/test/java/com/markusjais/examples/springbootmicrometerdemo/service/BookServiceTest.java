@@ -1,6 +1,7 @@
 package com.markusjais.examples.springbootmicrometerdemo.service;
 
 import com.markusjais.examples.springbootmicrometerdemo.domain.Book;
+import com.markusjais.examples.springbootmicrometerdemo.repository.BookAuthorCache;
 import com.markusjais.examples.springbootmicrometerdemo.repository.BookRepository;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -12,7 +13,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,6 +27,7 @@ public class BookServiceTest {
 
     private BookService bookService;
     private MeterRegistry meterRegistry;
+    private BookAuthorCache bookAuthorCache;
 
     @BeforeEach
     public void setup() {
@@ -36,7 +37,7 @@ public class BookServiceTest {
 
     @BeforeEach
     void initUseCase() {
-        bookService = new BookService(bookRepository, eventService, meterRegistry);
+        bookService = new BookService(bookRepository, eventService, meterRegistry, bookAuthorCache);
     }
 
     @Test

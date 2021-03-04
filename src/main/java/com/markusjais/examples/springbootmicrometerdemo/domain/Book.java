@@ -80,6 +80,9 @@ public class Book {
 );
 
 http -v POST http://localhost:8080/books author='Ian Newton' title='Upland Birds'
+http -v POST http://localhost:8080/books author='Stephen King' title='Pet Sematary'
+http http://localhost:8080/authors/Stephen%20King/books
+
 
 
 */

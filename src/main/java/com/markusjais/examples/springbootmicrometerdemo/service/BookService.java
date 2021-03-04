@@ -4,6 +4,7 @@ package com.markusjais.examples.springbootmicrometerdemo.service;
 import com.markusjais.examples.springbootmicrometerdemo.domain.Book;
 import com.markusjais.examples.springbootmicrometerdemo.domain.events.BookCreationEvent;
 import com.markusjais.examples.springbootmicrometerdemo.exceptions.ResourceNotFoundException;
+import com.markusjais.examples.springbootmicrometerdemo.repository.BookAuthorCache;
 import com.markusjais.examples.springbootmicrometerdemo.repository.BookRepository;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -19,13 +21,15 @@ public class BookService {
     private final BookRepository bookRepository;
     private final EventService eventService;
     private final MeterRegistry meterRegistry;
+    private final BookAuthorCache bookAuthorCache;
 
 
     public BookService(BookRepository bookRepository, EventService eventService,
-                       MeterRegistry meterRegistry) {
+                       MeterRegistry meterRegistry, BookAuthorCache bookAuthorCache) {
         this.bookRepository = bookRepository;
         this.eventService = eventService;
         this.meterRegistry = meterRegistry;
+        this.bookAuthorCache = bookAuthorCache;
     }
 
 
@@ -59,5 +63,9 @@ public class BookService {
         timer.record(() -> {
             bookRepository.deleteById(bookId);
         });
+    }
+
+    public Optional<List<Book>> findBookByAuthorName(String authorName) {
+        return bookAuthorCache.getBookByAuthor(authorName);
     }
 }
