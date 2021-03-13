@@ -65,7 +65,7 @@ public class BookService {
         });
     }
 
-    public Optional<List<Book>> findBookByAuthorName(String authorName) {
+    public Optional<List<Book>> findBooksByAuthorName(String authorName) {
         return bookAuthorCache.getBookByAuthor(authorName);
     }
 }

@@ -28,10 +28,10 @@ public class AuthorController {
     }
 
     @GetMapping("/{authorName}/books")
-    @Timed(value = "getBookByAuthorNameTimer")
+    @Timed(value = "getBooksByAuthorNameTimer")
     public Optional<List<Book>> getBookById(@PathVariable(value = "authorName") String authorName)
             throws ResourceNotFoundException {
-        return bookService.findBookByAuthorName(authorName);
+        return bookService.findBooksByAuthorName(authorName);
     }
 
 }
